@@ -7,6 +7,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+// Session Sessão do Discord atual
 var (
 	Session *discordgo.Session
 )
@@ -14,7 +15,7 @@ var (
 // Start Inicia a conexão com o servidor Discord.
 func Start() {
 	config.Load()
-	s, err := discordgo.New("Bot" + config.Data.Token)
+	s, err := discordgo.New("Bot " + config.Data.Token)
 
 	if err != nil {
 		log.Fatalln(err.Error())
