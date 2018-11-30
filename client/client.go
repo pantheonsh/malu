@@ -2,6 +2,7 @@ package client
 
 import (
 	"log"
+	"malu/client/handlers"
 	"malu/config"
 
 	"github.com/bwmarrin/discordgo"
@@ -28,6 +29,8 @@ func Start() {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
+
+	Session.AddHandler(handlers.MessageCreate)
 
 	log.Println("Iniciado!")
 }
