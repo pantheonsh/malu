@@ -32,6 +32,17 @@ func CalcCommand(args []string, s *discordgo.Session, m *discordgo.MessageCreate
 	} else {
 		success = true
 		resstring = result["result"].(string)
+
+		if strings.Contains(resstring, "e+") || strings.Contains(resstring, "e-") {
+			var positive = strings.Contains(resstring, "e+")
+			var split []string
+			if positive {
+				split = strings.Split(resstring, "e+")
+			} else {
+				split = strings.Split(resstring, "e")
+			}
+			resstring = split[0] + " * 10^" + split[1]
+		}
 	}
 
 	embed.SetColor(0x4286f4).
