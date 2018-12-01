@@ -3,6 +3,7 @@ package commands
 import (
 	"log"
 	"malu/commands/cmds"
+	"malu/config"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -21,6 +22,11 @@ func RegisterCommands() {
 func ExecCommand(commandName string, args []string, channel *discordgo.Channel, message *discordgo.MessageCreate, session *discordgo.Session) {
 	// Retorna o comando se ele existe no Map
 	if cmd, comandoExiste := Commands[commandName]; comandoExiste {
+		if cmd.OwnerOnly && message.Author.ID != config.Data.Owner {
+			session.ChannelMessageSend(channel.ID, "Este comando só é acessível aos desenvolvedores.")
+			return
+		}
+
 		err := cmd.Exec(session, message, channel)
 
 		if err != nil {
