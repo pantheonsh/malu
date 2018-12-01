@@ -37,5 +37,5 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	var cmd, args = split[0], split[1:]
 
 	cmd = strings.TrimPrefix(cmd, config.Data.Prefix)
-	commands.ExecCommand(cmd, args, channel, m.Message, s)
+	commands.ExecCommand(cmd, args, channel, m, s)
 }
