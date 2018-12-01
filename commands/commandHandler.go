@@ -16,6 +16,7 @@ var (
 // RegisterCommands Registra os comandos.
 func RegisterCommands() {
 	Commands["ping"] = Command{cmds.PingCommand, false}
+	Commands["calc"] = Command{cmds.CalcCommand, false}
 }
 
 // ExecCommand Executa um comando a partir do seu nome.
@@ -27,7 +28,7 @@ func ExecCommand(commandName string, args []string, channel *discordgo.Channel, 
 			return
 		}
 
-		err := cmd.Exec(session, message, channel)
+		err := cmd.Exec(args, session, message, channel)
 
 		if err != nil {
 			log.Println("Erro ao executar o comando", commandName, args, "no canal", channel.Name)
