@@ -16,6 +16,7 @@ var (
 // RegisterCommands Registra os comandos.
 func RegisterCommands() {
 	Commands["calc"] = Command{commands.CalcCommand, false}
+	Commands["eval"] = Command{commands.EvalCommand, true}
 }
 
 // ExecCommand Executa um comando a partir do seu nome.
