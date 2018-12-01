@@ -17,6 +17,7 @@ var (
 func RegisterCommands() {
 	Commands["calc"] = Command{commands.CalcCommand, false}
 	Commands["eval"] = Command{commands.EvalCommand, true}
+	Commands["google"] = Command{commands.GoogleCommand, false}
 }
 
 // ExecCommand Executa um comando a partir do seu nome.
