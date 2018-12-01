@@ -15,7 +15,6 @@ var (
 
 // RegisterCommands Registra os comandos.
 func RegisterCommands() {
-	Commands["ping"] = Command{commands.PingCommand, false}
 	Commands["calc"] = Command{commands.CalcCommand, false}
 }
 
