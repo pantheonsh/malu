@@ -3,7 +3,7 @@ package client
 import (
 	"log"
 	"malu/client/handlers"
-	"malu/commands"
+	"malu/commandhandler"
 	"malu/config"
 
 	"github.com/bwmarrin/discordgo"
@@ -31,7 +31,7 @@ func Start() {
 		log.Fatalln(err.Error())
 	}
 
-	commands.RegisterCommands()
+	commandhandler.RegisterCommands()
 
 	Session.AddHandler(handlers.MessageCreate)
 

@@ -1,8 +1,8 @@
-package commands
+package commandhandler
 
 import (
 	"log"
-	"malu/commands/cmds"
+	"malu/commandhandler/commands"
 	"malu/config"
 
 	"github.com/bwmarrin/discordgo"
@@ -15,8 +15,8 @@ var (
 
 // RegisterCommands Registra os comandos.
 func RegisterCommands() {
-	Commands["ping"] = Command{cmds.PingCommand, false}
-	Commands["calc"] = Command{cmds.CalcCommand, false}
+	Commands["ping"] = Command{commands.PingCommand, false}
+	Commands["calc"] = Command{commands.CalcCommand, false}
 }
 
 // ExecCommand Executa um comando a partir do seu nome.

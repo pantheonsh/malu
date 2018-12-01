@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"malu/commands"
+	"malu/commandhandler"
 	"malu/config"
 	"strings"
 
@@ -37,5 +37,5 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	var cmd, args = split[0], split[1:]
 
 	cmd = strings.TrimPrefix(cmd, config.Data.Prefix)
-	commands.ExecCommand(cmd, args, channel, m, s)
+	commandhandler.ExecCommand(cmd, args, channel, m, s)
 }
