@@ -37,4 +37,19 @@ func ExecCommand(commandName string, args []string, channel *discordgo.Channel, 
 			session.ChannelMessageSend(channel.ID, "Ocorreu um erro ao executar o comando!")
 		}
 	}
+
+	if commandName == "ajuda" {
+		HelpSpecialCommand(args, session, message, channel)
+	}
+}
+
+// HelpSpecialCommand Comando especial de ajuda
+func HelpSpecialCommand(args []string, s *discordgo.Session, m *discordgo.MessageCreate, c *discordgo.Channel) {
+	var str = ""
+
+	for key, _ := range Commands {
+		str += key + "\n"
+	}
+
+	s.ChannelMessageSend(c.ID, str)
 }
