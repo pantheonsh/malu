@@ -37,6 +37,4 @@ func ExecCommand(commandName string, args []string, channel *discordgo.Channel, 
 			session.ChannelMessageSend(channel.ID, "Ocorreu um erro ao executar o comando!")
 		}
 	}
-
-	return
 }
