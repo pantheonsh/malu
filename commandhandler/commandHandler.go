@@ -47,7 +47,7 @@ func ExecCommand(commandName string, args []string, channel *discordgo.Channel, 
 func HelpSpecialCommand(args []string, s *discordgo.Session, m *discordgo.MessageCreate, c *discordgo.Channel) {
 	var str = ""
 
-	for key, _ := range Commands {
+	for key := range Commands {
 		str += key + "\n"
 	}
 
