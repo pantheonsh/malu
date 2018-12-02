@@ -70,7 +70,7 @@ func HelpSpecialCommand(args []string, s *discordgo.Session, m *discordgo.Messag
 		SetColor(0x7289DA)
 
 	for _, val := range Commands {
-		embed.AddField("*"+val.Example+"*", val.Description+"\nOutros nomes: "+strings.Join(val.Aliases, ", "))
+		embed.AddField(val.Name+" *"+val.Example+"*", val.Description+"\nOutros nomes: "+strings.Join(val.Aliases, ", "))
 	}
 
 	s.ChannelMessageSendEmbed(c.ID, embed.MessageEmbed)
