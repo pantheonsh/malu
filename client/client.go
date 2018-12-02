@@ -31,7 +31,7 @@ func Start() {
 		log.Fatalln(err.Error())
 	}
 
-	commandhandler.RegisterCommands()
+	commandhandler.RegisterAliases()
 
 	Session.AddHandler(handlers.MessageCreate)
 

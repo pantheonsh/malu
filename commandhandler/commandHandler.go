@@ -2,28 +2,28 @@ package commandhandler
 
 import (
 	"log"
-	"malu/commandhandler/commands"
 	"malu/config"
+	"malu/utils"
+	"strings"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-// Commands Guarda os comandos
-var (
-	Commands = make(map[string]Command)
-)
+var aliases = make(map[string]Command)
 
-// RegisterCommands Registra os comandos.
-func RegisterCommands() {
-	Commands["calc"] = Command{commands.CalcCommand, false}
-	Commands["eval"] = Command{commands.EvalCommand, true}
-	Commands["google"] = Command{commands.GoogleCommand, false}
+// RegisterAliases Adiciona os nomes de aliases como referências aos comandos.
+func RegisterAliases() {
+	for _, cmd := range Commands {
+		for _, aliasName := range cmd.Aliases {
+			aliases[aliasName] = cmd
+		}
+	}
 }
 
 // ExecCommand Executa um comando a partir do seu nome.
 func ExecCommand(commandName string, args []string, channel *discordgo.Channel, message *discordgo.MessageCreate, session *discordgo.Session) {
-	// Retorna o comando se ele existe no Map
-	if cmd, comandoExiste := Commands[commandName]; comandoExiste {
+	// Retorna o comando se ele existe
+	if cmd, found := FindCommand(commandName); found {
 		if cmd.OwnerOnly && message.Author.ID != config.Data.Owner {
 			session.ChannelMessageSend(channel.ID, "Este comando só é acessível aos desenvolvedores.")
 			return
@@ -44,13 +44,34 @@ func ExecCommand(commandName string, args []string, channel *discordgo.Channel, 
 	}
 }
 
-// HelpSpecialCommand Comando especial de ajuda
-func HelpSpecialCommand(args []string, s *discordgo.Session, m *discordgo.MessageCreate, c *discordgo.Channel) {
-	var str = ""
+// FindCommand Encontra um comando pelo seu nome ou por um alias
+func FindCommand(cmdname string) (Command, bool) {
+	var c = Command{}
 
-	for key := range Commands {
-		str += key + "\n"
+	if cmd, comandoExiste := Commands[cmdname]; comandoExiste {
+		return cmd, true
 	}
 
-	s.ChannelMessageSend(c.ID, str)
+	for _, cmd := range Commands {
+		for _, alias := range cmd.Aliases {
+			if alias == cmdname {
+				return cmd, true
+			}
+		}
+	}
+
+	return c, false
+}
+
+// HelpSpecialCommand Comando especial de ajuda
+func HelpSpecialCommand(args []string, s *discordgo.Session, m *discordgo.MessageCreate, c *discordgo.Channel) {
+	var embed = utils.NewEmbed().
+		SetTitle("Comandos").
+		SetColor(0x7289DA)
+
+	for _, val := range Commands {
+		embed.AddField("*"+val.Example+"*", val.Description+"\nOutros nomes: "+strings.Join(val.Aliases, ", "))
+	}
+
+	s.ChannelMessageSendEmbed(c.ID, embed.MessageEmbed)
 }
