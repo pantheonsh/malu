@@ -35,8 +35,16 @@ var Commands = map[string]Command{
 		Exec:        commands.EvalCommand,
 		Name:        "eval",
 		Aliases:     []string{"js"},
-		Description: "Executa uma expressão JavaScript.",
+		Description: "Executa uma expressão JavaScript",
 		Example:     "console.log('1, 2, 3')",
 		OwnerOnly:   true,
+	},
+	"avatar": Command{
+		Exec:        commands.AvatarCommand,
+		Name:        "avatar",
+		Aliases:     []string{},
+		Description: "Mostra a foto de um usuário em toda sua glória",
+		Example:     "@Usuário",
+		OwnerOnly:   false,
 	},
 }
