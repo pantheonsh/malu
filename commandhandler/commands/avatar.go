@@ -16,7 +16,8 @@ func AvatarCommand(args []string, s *discordgo.Session, m *discordgo.MessageCrea
 	var embed = utils.NewEmbed().
 		SetColor(0x4286f4).
 		SetTitle("Avatar de " + user.Username + "#" + user.Discriminator).
-		SetImage(user.AvatarURL(""))
+		SetDescription("512x512 PNG").
+		SetImage(user.AvatarURL("512"))
 
 	s.ChannelMessageSendEmbed(c.ID, embed.MessageEmbed)
 	return nil
